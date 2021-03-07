@@ -18,7 +18,7 @@ public interface DeviceRepository {
 
     CompletionStage<Long> removeDevice(Long id);
 
-    CompletionStage<Error> error(Error error);
+    CompletionStage<DeviceLog> updateDevice(DeviceLog log);
 
-    CompletionStage<Stream<Error>> listErrors(Long deviceId);
+    CompletionStage<DeviceLog> checkDevice(Long deviceId);
 }

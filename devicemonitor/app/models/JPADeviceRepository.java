@@ -49,13 +49,13 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     @Override
-    public CompletionStage<Error> error(Error error) {
-        return supplyAsync(() -> wrap(em -> error(em, error)), execContext);
+    public CompletionStage<DeviceLog> updateDevice(DeviceLog log) {
+        return supplyAsync(() -> wrap(em -> update(em, log)), execContext);
     }
 
     @Override
-    public CompletionStage<Stream<Error>> listErrors(Long deviceId) {
-        return supplyAsync(() -> wrap(em -> listErrors(em, deviceId)), execContext);
+    public CompletionStage<DeviceLog> checkDevice(Long deviceId) {
+        return supplyAsync(() -> wrap(em -> check(em, deviceId)), execContext);
     }
 
     private <T> T wrap(Function<EntityManager, T> function) {
@@ -68,12 +68,19 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private Customer insertCustomer(EntityManager em, Customer customer) {
+        Query query = em.createQuery("select c from Customer c where c.name = :name");
+        List<Customer> customers = query.setParameter("name", customer.name).getResultList();
+
+        if(customers.size() > 0) {
+            return null;
+        }
+
         em.persist(customer);
         return customer;
     }
 
     private Stream<Device> listDevices(EntityManager em) {
-        List<Device> devices = em.createQuery("select d from Device d", Device.class).getResultList();
+        List<Device> devices = em.createQuery("select d from Device d where d.status !=0", Device.class).getResultList();
         return devices.stream();
     }
 
@@ -83,24 +90,31 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private Long removeDevice(EntityManager em, Long id) {
-        Query query  = em.createQuery("select d from Device d where d.id = :id");
-        List<Device> devices = query.setParameter("id", id).getResultList();
-
-        if(devices.size() == 1) {
-            em.remove(devices.get(0));
-        }
+        Query query  = em.createQuery("update Device d set d.status = :status, updateAt = :updateAt where d.id = :id");
+        query.setParameter("status", 0);
+        query.setParameter("updateAt", System.currentTimeMillis());
+        query.executeUpdate();
 
         return id;
     }
 
-    private Error error(EntityManager em, Error error) {
-        em.persist(error);
-        return error;
+    private DeviceLog update(EntityManager em, DeviceLog log) {
+        Query query  = em.createQuery("update Device d set d.status = :status, updateAt = :updateAt where d.id = :id");
+        query.setParameter("status", log.status);
+        query.setParameter("updateAt", System.currentTimeMillis());
+        query.executeUpdate();
+
+        em.persist(log);
+        return log;
     }
 
-    private Stream<Error> listErrors(EntityManager em, Long id) {
-        Query query = em.createQuery("select e from Error e where e.deviceId = :id");
-        List<Error> errors = query.setParameter("id", id).getResultList();
-        return errors.stream();
+    private DeviceLog check(EntityManager em, Long id) {
+        Query query = em.createQuery("select l from DeviceLog l where l.deviceId = :id");
+        List<DeviceLog> logs = query.setParameter("id", id).getResultList();
+
+        if(logs.size() == 0) {
+            return null;
+        }
+        return logs.get(0);
     }
 }

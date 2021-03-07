@@ -6,13 +6,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Error {
+public class DeviceLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
 
     public Long deviceId;
+
+    public int status;
+
+    public int executionHours;
 
     public String error;
 
@@ -32,6 +36,22 @@ public class Error {
 
     public void setDeviceId(Long deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getExecutionHours() {
+        return executionHours;
+    }
+
+    public void setExecutionHours(int executionHours) {
+        this.executionHours = executionHours;
     }
 
     public String getError() {

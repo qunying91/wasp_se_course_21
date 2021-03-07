@@ -10,8 +10,10 @@ scalaVersion := "2.13.3"
 libraryDependencies ++= Seq(
   guice,
   javaJpa,
+  javaJdbc,
   "com.h2database" % "h2" % "1.4.199",
   "org.hibernate" % "hibernate-core" % "5.4.9.Final",
+  "mysql" % "mysql-connector-java" % "5.1.41",
   javaWs % "test",
   "org.awaitility" % "awaitility" % "4.0.1" % "test",
   "org.assertj" % "assertj-core" % "3.14.0" % "test",
