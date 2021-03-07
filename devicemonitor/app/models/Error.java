@@ -12,6 +12,8 @@ public class Error {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
 
+    public Long deviceId;
+
     public String error;
 
     public String updateAt;
@@ -22,6 +24,14 @@ public class Error {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(Long deviceId) {
+        this.deviceId = deviceId;
     }
 
     public String getError() {
