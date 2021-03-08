@@ -18,6 +18,8 @@ public class JPADeviceRepository implements DeviceRepository{
     private final JPAApi jpaApi;
     private final DbExecuteContext execContext;
 
+    private final String STAT_INVALID = "INVALID";
+
     @Inject
     public JPADeviceRepository (JPAApi jpaApi, DbExecuteContext execContext) {
         this.jpaApi = jpaApi;
@@ -81,7 +83,7 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private Stream<Device> listDevices(EntityManager em) {
-        List<Device> devices = em.createQuery("select d from Device d where d.status !=0", Device.class).getResultList();
+        List<Device> devices = em.createQuery("select d from Device d where d.status != 'ACTIVE'", Device.class).getResultList();
         return devices.stream();
     }
 
@@ -92,7 +94,7 @@ public class JPADeviceRepository implements DeviceRepository{
 
     private Long removeDevice(EntityManager em, Long id) {
         Query query  = em.createQuery("update Device d set d.status = :status, updateAt = :updateAt where d.id = :id");
-        query.setParameter("status", 0);
+        query.setParameter("status", STAT_INVALID);
         query.setParameter("updateAt", System.currentTimeMillis());
         query.setParameter("id", id);
         query.executeUpdate();

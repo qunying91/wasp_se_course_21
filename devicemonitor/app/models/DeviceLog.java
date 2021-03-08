@@ -14,13 +14,13 @@ public class DeviceLog {
 
     public Long deviceId;
 
-    public int status;
+    public String status;
 
     public int executionHours;
 
     public String error;
 
-    public String updateAt;
+    public Long updateAt;
 
     public Long getId() {
         return id;
@@ -38,11 +38,11 @@ public class DeviceLog {
         this.deviceId = deviceId;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -62,11 +62,11 @@ public class DeviceLog {
         this.error = error;
     }
 
-    public String getUpdateAt() {
+    public Long getUpdateAt() {
         return updateAt;
     }
 
-    public void setUpdateAt(String updateAt) {
+    public void setUpdateAt(Long updateAt) {
         this.updateAt = updateAt;
     }
 }

@@ -16,7 +16,7 @@ public class Device {
 
     public Long updateAt;
 
-    public int Status;
+    public String status;
 
     public Long getId() {
         return id;
@@ -42,11 +42,11 @@ public class Device {
         this.updateAt = updateAt;
     }
 
-    public int getStatus() {
-        return Status;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatus(int status) {
-        Status = status;
+    public void setStatus(String status) {
+        status = status;
     }
 }
