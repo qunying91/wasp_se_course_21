@@ -5,6 +5,7 @@ import play.db.jpa.JPAApi;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
@@ -68,7 +69,7 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private Customer insertCustomer(EntityManager em, Customer customer) {
-        Query query = em.createQuery("select c from Customer c where c.name = :name");
+        TypedQuery<Customer> query = em.createQuery("select c from Customer c where c.name = :name", Customer.class);
         List<Customer> customers = query.setParameter("name", customer.name).getResultList();
 
         if(customers.size() > 0) {
@@ -93,6 +94,7 @@ public class JPADeviceRepository implements DeviceRepository{
         Query query  = em.createQuery("update Device d set d.status = :status, updateAt = :updateAt where d.id = :id");
         query.setParameter("status", 0);
         query.setParameter("updateAt", System.currentTimeMillis());
+        query.setParameter("id", id);
         query.executeUpdate();
 
         return id;
@@ -102,6 +104,7 @@ public class JPADeviceRepository implements DeviceRepository{
         Query query  = em.createQuery("update Device d set d.status = :status, updateAt = :updateAt where d.id = :id");
         query.setParameter("status", log.status);
         query.setParameter("updateAt", System.currentTimeMillis());
+        query.setParameter("id", log.deviceId);
         query.executeUpdate();
 
         em.persist(log);
@@ -109,7 +112,7 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private DeviceLog check(EntityManager em, Long id) {
-        Query query = em.createQuery("select l from DeviceLog l where l.deviceId = :id");
+        TypedQuery<DeviceLog> query = em.createQuery("select l from DeviceLog l where l.deviceId = :id", DeviceLog.class);
         List<DeviceLog> logs = query.setParameter("id", id).getResultList();
 
         if(logs.size() == 0) {
