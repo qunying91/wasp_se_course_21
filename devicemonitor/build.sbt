@@ -19,3 +19,7 @@ libraryDependencies ++= Seq(
   "org.assertj" % "assertj-core" % "3.14.0" % "test",
   "org.mockito" % "mockito-core" % "3.1.0" % "test",
 )
+
+Test / testOptions += Tests.Argument(TestFrameworks.JUnit, "-a", "-v")
+
+javacOptions ++= List("-Xlint:unchecked", "-Xlint:deprecation", "-Werror")
