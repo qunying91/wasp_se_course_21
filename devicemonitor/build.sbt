@@ -22,3 +22,4 @@ libraryDependencies ++= Seq(
 
 Test / testOptions += Tests.Argument(TestFrameworks.JUnit, "-a", "-v")
 javacOptions ++= List("-Xlint:unchecked", "-Xlint:deprecation", "-Werror")
+javaOptions in Test += "-Dconfig.file=conf/application.test.conf"
