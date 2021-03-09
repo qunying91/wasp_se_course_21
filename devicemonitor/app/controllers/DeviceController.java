@@ -18,7 +18,7 @@ import static play.libs.Json.toJson;
  * This controller contains actions to handle HTTP requests
  * to add, remove, list, update, or check the device info.
  *
- * @Author Song
+ * @author Song
  */
 public class DeviceController extends Controller {
 
