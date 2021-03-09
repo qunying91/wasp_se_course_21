@@ -1,5 +1,27 @@
 @()
 
-@main("Welcome to Play") {
-  <h1>Welcome to Play!</h1>
+@main("DeviceMonitor") {
+
+    <div class="divCenter">
+        <h1>Welcome to the device monitor platform</h1>
+    </div>
+
+    <script type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>
+    <div>
+        <table id="devices" class="center"></table>
+    </div>
+
+    <div class="divCenter">
+        <form method="POST" action="@routes.DeviceController.addCustomer()">
+            <!--input type="text" name="name"/>
+            <input type="id" name="id"/-->
+            <button> Add New Customer</button>
+        </form>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <form method="POST" action="@routes.DeviceController.addDevice()">
+            <button> Add New Device</button>
+        </form>
+    </div>
 }
