@@ -199,6 +199,7 @@ public class DeviceControllerUT {
         // verify attributes in the response body
         assertEquals("device id should be the same", device.id, addedDevice.id);
         assertEquals("device customer id should be the same", device.customerId, addedDevice.customerId);
+        assertEquals("device description should be the same", device.description, addedDevice.description);
         assertEquals("device status should be the same", device.status, addedDevice.status);
         assertEquals("device updated time should be the same", device.updateAt, addedDevice.updateAt);
     }
@@ -250,6 +251,7 @@ public class DeviceControllerUT {
         // verify attributes in the response body
         assertEquals("device id should be the same", device.id, retrievedDevices.get(0).id);
         assertEquals("device customer id should be the same", device.customerId, retrievedDevices.get(0).customerId);
+        assertEquals("device description should be the same", device.description, retrievedDevices.get(0).description);
         assertEquals("device status should be the same", device.status, retrievedDevices.get(0).status);
         assertEquals("device updated time should be the same", device.updateAt, retrievedDevices.get(0).updateAt);
     }
@@ -395,6 +397,7 @@ public class DeviceControllerUT {
     private void initDevice() {
         device.id = 203375L;
         device.customerId = customer.id;
+        device.description = "Quality assurance device";
         device.status = "ACTIVE";
         device.updateAt = System.currentTimeMillis();
     }
