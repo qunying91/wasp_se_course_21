@@ -13,7 +13,7 @@ libraryDependencies ++= Seq(
   javaJdbc,
   "com.h2database" % "h2" % "1.4.199",
   "org.hibernate" % "hibernate-core" % "5.4.9.Final",
-  "mysql" % "mysql-connector-java" % "5.1.41",
+  "mysql" % "mysql-connector-java" % "8.0.23",
   javaWs % "test",
   "org.awaitility" % "awaitility" % "4.0.1" % "test",
   "org.assertj" % "assertj-core" % "3.14.0" % "test",
@@ -21,5 +21,4 @@ libraryDependencies ++= Seq(
 )
 
 Test / testOptions += Tests.Argument(TestFrameworks.JUnit, "-a", "-v")
-
 javacOptions ++= List("-Xlint:unchecked", "-Xlint:deprecation", "-Werror")
