@@ -1,22 +1,28 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "device_log")
 public class DeviceLog {
 
     @Id
     public Long id;
 
+    @Column(name = "device_id")
     public Long deviceId;
 
     public String status;
 
+    @Column(name = "execution_hours")
     public int executionHours;
 
     public String error;
 
+    @Column(name = "update_at")
     public Long updateAt;
 
     public Long getId() {
