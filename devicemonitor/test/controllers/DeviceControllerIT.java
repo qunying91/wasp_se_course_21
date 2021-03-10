@@ -34,13 +34,13 @@ public class DeviceControllerIT extends WithServer {
     private DeviceLog deviceLog = new DeviceLog();
 
     // prepare some constant fields that will be used in the test cases
-    private final String customerName = "test";
-    private final Long customerId = System.currentTimeMillis();
-    private final Long deviceId = System.currentTimeMillis();
-    private final Long deviceLogId = System.currentTimeMillis();
-    private final String description = "test device for quality inspection";
-    private final String status = "ACTIVE";
-    private final int executionHours = 12;
+    private static final String customerName = "test";
+    private static final Long customerId = System.currentTimeMillis();
+    private static final Long deviceId = System.currentTimeMillis();
+    private static final Long deviceLogId = System.currentTimeMillis();
+    private static final String description = "test device for quality inspection";
+    private static final String status = "ACTIVE";
+    private static final int executionHours = 12;
 
     /**
      * TC1: test add customer through /add/customer url

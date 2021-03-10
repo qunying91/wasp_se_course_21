@@ -128,7 +128,7 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private Long removeDevice(EntityManager em, Long id) {
-        Query query  = em.createQuery("update Device d set d.status = :status, d.update_at = :updateAt where d.id = :id");
+        Query query  = em.createQuery("update Device d set d.status = :status, d.updateAt = :updateAt where d.id = :id");
         query.setParameter("status", STAT_INVALID);
         query.setParameter("updateAt", System.currentTimeMillis());
         query.setParameter("id", id);
@@ -138,7 +138,7 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private DeviceLog update(EntityManager em, DeviceLog log) {
-        Query query  = em.createQuery("update Device d set d.status = :status, d.update_at = :updateAt where d.id = :id");
+        Query query  = em.createQuery("update Device d set d.status = :status, d.updateAt = :updateAt where d.id = :id");
         query.setParameter("status", log.status);
         query.setParameter("updateAt", System.currentTimeMillis());
         query.setParameter("id", log.deviceId);
