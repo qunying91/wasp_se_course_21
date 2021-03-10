@@ -1,6 +1,13 @@
 table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
+  padding:10px
+}
+
+th{
+  background-color: #A9A9A9;
+  font-weight: bold;
+  text-align: left;
 }
 
 table.center {
@@ -13,4 +20,16 @@ table.center {
   justify-content: center;
   align-items: center;
   height: 100px;
+}
+
+.buttonGreen {
+  background-color: #4CAF50;
+}
+
+.buttonRed {
+  background-color: #f44336;
+}
+
+.buttonGrey {
+  background-color: #008CBA;
 }
