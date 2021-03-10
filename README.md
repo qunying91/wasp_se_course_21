@@ -20,7 +20,7 @@ A typical work flow of the DeviceMonitor platform follows the below procedures i
 - Device supplier ```checks``` regularly on the plfatform about the device info, and contact the customer if necessay, when an error is reported on a device, or remove a device that is no longer valid.
 
 ### 2. Development
-The application is developed using a typical MVC architecture in ```Java```, based on a lightweighted framework ```Play```. Current development has fulfilled the implementation of all backend services and a basic interface view in displaying the existing and valid devices. ==Please note that other interfaces for, e.g. adding/removing/checking details of a device are not implemented yet due to the limitation of time and capacity in front-end development.==
+The application is developed using a typical MVC architecture in ```Java```, based on a lightweighted framework ```Play```. Current development has fulfilled the implementation of all backend services and a basic interface view in displaying the existing and valid devices. ```Please note that other interfaces for, e.g. adding/removing/checking details of a device are not implemented yet due to the limitation of time and capacity in front-end development.```
 
 #### 2.1 Technique Stack 
 (Versioned) Techniques and tools used for development of the platform:
@@ -53,13 +53,13 @@ Four types of testing were implemented or conducted for this project, as shown i
 - Acceptance test - a class of acceptance test cases for the platform and can be found as ```/test/controllers/DeviceControllerAT.java```, currently only 1 test case implemented, which is requesting and asserting the content of the default page.
 
 
-==Please note that you need to== install MySQL Server 8 and run the script ```/conf/create-table.sql```, and also run ```/conf/sample-data.sql``` if you want some default data. Before running the script, you need to change the database name from ```devicemonitor``` to ```test_devicemonitor``` in ```/conf/create-table.sql```. After setting up the database, you need to configure the credentials in the ```conf/application.test.conf``` to connect to the database just created.
+```Please note that you need to``` install MySQL Server 8 and run the script ```/conf/create-table.sql```, and also run ```/conf/sample-data.sql``` if you want some default data. Before running the script, you need to change the database name from ```devicemonitor``` to ```test_devicemonitor``` in ```/conf/create-table.sql```. After setting up the database, you need to configure the credentials in the ```conf/application.test.conf``` to connect to the database just created.
 
-==Please also note that you need to== install ```Java ```, ```Sbt``` and ```nodeJs``` with above-mentioned version (from section 2.1) preferred, other versions of the software may result in errors and fail to start the test. You can either run the test with 1) IDE such as eclipse, or IntelliJ etc., 2). Run  ```sbt test -Dconfig.file=conf/application.test.conf``` in command shell, 3). Run the bash file under ```\scripts\test-sbt``` to automate the testing.
+```Please also note that you need to``` install ```Java ```, ```Sbt``` and ```nodeJs``` with above-mentioned version (from section 2.1) preferred, other versions of the software may result in errors and fail to start the test. You can either run the test with 1) IDE such as eclipse, or IntelliJ etc., 2). Run  ```sbt test -Dconfig.file=conf/application.test.conf``` in command shell, 3). Run the bash file under ```\scripts\test-sbt``` to automate the testing.
 
 ### 4. Run and Installation
 
-To run this application, you need to do following setup as prerequisites of the environment. Please make sure you have all setups down, ==with correct version==,  in place.
+To run this application, you need to do following setup as prerequisites of the environment. Please make sure you have all setups down, ```with correct version```,  in place.
 - ```Install Java 8``` (Java 1.8.0_212 is recommended) and set the environment variable. Higher version may encounter problems in running the node program, and thus causing compilation failure.
 - ```Install Sbt``` (e.g. 1.4.7 or higher), and sets the environment variable.
 - ```Install nodeJs``` (10.24.0 is recommended).
