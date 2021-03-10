@@ -6,6 +6,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
@@ -26,36 +28,76 @@ public class JPADeviceRepository implements DeviceRepository{
         this.execContext = execContext;
     }
 
+    /**
+     * Persist a new customer into db
+     *
+     * @param customer to be persisted
+     * @return the customer persisted
+     */
     @Override
     public CompletionStage<Customer> addCustomer(Customer customer) {
         return supplyAsync(() -> wrap(em -> insertCustomer(em, customer)), execContext);
     }
 
+    /**
+     * Select existing customers from db
+     *
+     * @return list of existing customers
+     */
     @Override
     public CompletionStage<Stream<Customer>> listCustomers() {
         return supplyAsync(() -> wrap(em -> listCustomers(em)), execContext);
     }
 
+    /**
+     * Select existing and valid devices from db
+     *
+     * @return list of existing and valid devices
+     */
     @Override
     public CompletionStage<Stream<Device>> listDevices() {
         return supplyAsync(() -> wrap(em -> listDevices(em)), execContext);
     }
 
+    /**
+     * Persist a new device into db
+     *
+     * @param device to be persisted
+     * @return the persisted device
+     */
     @Override
     public CompletionStage<Device> addDevice(Device device) {
         return supplyAsync(() -> wrap(em -> insertDevice(em, device)), execContext);
     }
 
+    /**
+     * Update device status to 'INVALID' in db
+     *
+     * @param id device id to be updated
+     * @return device id
+     */
     @Override
     public CompletionStage<Long> removeDevice(Long id) {
         return supplyAsync(() -> wrap(em -> removeDevice(em, id)), execContext);
     }
 
+    /**
+     * Persist a new device log and update device status into db
+     *
+     * @param log to be persisted
+     * @return the persisted device log
+     */
     @Override
     public CompletionStage<DeviceLog> updateDevice(DeviceLog log) {
         return supplyAsync(() -> wrap(em -> update(em, log)), execContext);
     }
 
+    /**
+     * Select the latest updated log of the device from db
+     *
+     * @param deviceId device id
+     * @return the latest device log
+     */
     @Override
     public CompletionStage<DeviceLog> checkDevice(Long deviceId) {
         return supplyAsync(() -> wrap(em -> check(em, deviceId)), execContext);
@@ -71,19 +113,12 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private Customer insertCustomer(EntityManager em, Customer customer) {
-        TypedQuery<Customer> query = em.createQuery("select c from Customer c where c.name = :name", Customer.class);
-        List<Customer> customers = query.setParameter("name", customer.name).getResultList();
-
-        if(customers.size() > 0) {
-            return null;
-        }
-
         em.persist(customer);
         return customer;
     }
 
     private Stream<Device> listDevices(EntityManager em) {
-        List<Device> devices = em.createQuery("select d from Device d where d.status != 'ACTIVE'", Device.class).getResultList();
+        List<Device> devices = em.createQuery("select d from Device d where d.status != 'INVALID'", Device.class).getResultList();
         return devices.stream();
     }
 
@@ -93,7 +128,7 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private Long removeDevice(EntityManager em, Long id) {
-        Query query  = em.createQuery("update Device d set d.status = :status, updateAt = :updateAt where d.id = :id");
+        Query query  = em.createQuery("update Device d set d.status = :status, d.update_at = :updateAt where d.id = :id");
         query.setParameter("status", STAT_INVALID);
         query.setParameter("updateAt", System.currentTimeMillis());
         query.setParameter("id", id);
@@ -103,7 +138,7 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private DeviceLog update(EntityManager em, DeviceLog log) {
-        Query query  = em.createQuery("update Device d set d.status = :status, updateAt = :updateAt where d.id = :id");
+        Query query  = em.createQuery("update Device d set d.status = :status, d.update_at = :updateAt where d.id = :id");
         query.setParameter("status", log.status);
         query.setParameter("updateAt", System.currentTimeMillis());
         query.setParameter("id", log.deviceId);
@@ -120,6 +155,16 @@ public class JPADeviceRepository implements DeviceRepository{
         if(logs.size() == 0) {
             return null;
         }
+
+        // sort the list by id in descending order
+        Collections.sort(logs, new Comparator<DeviceLog>() {
+            @Override
+            public int compare(DeviceLog d1, DeviceLog d2) {
+                return d2.getId().compareTo(d1.getId());
+            }
+        });
+
+
         return logs.get(0);
     }
 }
