@@ -133,7 +133,7 @@ public class DeviceController extends Controller {
     public CompletionStage<Result> updateDevice(final Http.Request request) {
         DeviceLog deviceLog = formFactory.form(DeviceLog.class).bindFromRequest(request).get();
         return deviceRepository
-                .updateDevice(deviceLog)
+                .updateDeviceLog(deviceLog)
                 .thenApplyAsync(deviceLogAdded -> ok(toJson(deviceLogAdded)), execCxt.current());
     }
 

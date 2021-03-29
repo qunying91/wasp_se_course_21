@@ -21,7 +21,7 @@ public interface DeviceRepository {
 
     CompletionStage<Long> removeDevice(Long id);
 
-    CompletionStage<DeviceLog> updateDevice(DeviceLog log);
+    CompletionStage<DeviceLog> updateDeviceLog(DeviceLog log);
 
     CompletionStage<DeviceLog> checkDeviceLog(Long deviceId);
 }

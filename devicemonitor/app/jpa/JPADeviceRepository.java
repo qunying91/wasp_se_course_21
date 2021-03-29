@@ -89,7 +89,7 @@ public class JPADeviceRepository implements DeviceRepository{
      * @return the persisted device log
      */
     @Override
-    public CompletionStage<DeviceLog> updateDevice(DeviceLog log) {
+    public CompletionStage<DeviceLog> updateDeviceLog(DeviceLog log) {
         return supplyAsync(() -> wrap(em -> update(em, log)), execContext);
     }
 
