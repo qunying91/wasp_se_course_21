@@ -100,7 +100,7 @@ public class JPADeviceRepository implements DeviceRepository{
      * @return the latest device log
      */
     @Override
-    public CompletionStage<DeviceLog> checkDevice(Long deviceId) {
+    public CompletionStage<DeviceLog> checkDeviceLog(Long deviceId) {
         return supplyAsync(() -> wrap(em -> check(em, deviceId)), execContext);
     }
 

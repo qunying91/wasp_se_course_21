@@ -359,7 +359,7 @@ public class DeviceControllerUT {
         initDeviceLog();
         mockup();
 
-        when(deviceRepository.checkDevice(device.id)).thenReturn(supplyAsync(() -> deviceLog));
+        when(deviceRepository.checkDeviceLog(device.id)).thenReturn(supplyAsync(() -> deviceLog));
 
         // prepare the http request
         Http.Request req = Helpers.fakeRequest("POST", "/check/101175")

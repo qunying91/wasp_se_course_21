@@ -23,5 +23,5 @@ public interface DeviceRepository {
 
     CompletionStage<DeviceLog> updateDevice(DeviceLog log);
 
-    CompletionStage<DeviceLog> checkDevice(Long deviceId);
+    CompletionStage<DeviceLog> checkDeviceLog(Long deviceId);
 }

@@ -148,7 +148,7 @@ public class DeviceController extends Controller {
      */
     public CompletionStage<Result> checkDevice(Long id) {
         return deviceRepository
-                .checkDevice(id)
+                .checkDeviceLog(id)
                 .thenApplyAsync(deviceLog -> ok(toJson(deviceLog)), execCxt.current());
     }
 
