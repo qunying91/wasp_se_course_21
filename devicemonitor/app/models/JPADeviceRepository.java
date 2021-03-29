@@ -152,10 +152,6 @@ public class JPADeviceRepository implements DeviceRepository{
         TypedQuery<DeviceLog> query = em.createQuery("select l from DeviceLog l where l.deviceId = :id order by id desc", DeviceLog.class);
         List<DeviceLog> logs = query.setParameter("id", id).getResultList();
 
-        if(logs.size() == 0) {
-            return null;
-        }
-
-        return logs.get(0);
+        return logs.size() == 0 ? null : logs.get(0);
     }
 }
