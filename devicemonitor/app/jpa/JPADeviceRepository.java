@@ -142,6 +142,13 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private DeviceLog updateDeviceLog(EntityManager em, DeviceLog log) {
+        updateDevice(em, log);
+
+        em.persist(log);
+        return log;
+    }
+
+    private void updateDevice(EntityManager em, DeviceLog log) {
         Query query  = em.createQuery("update Device d set d.status = :status, d.updateAt = :updateAt where d.id = :id");
         query.setParameter("status", log.status);
         query.setParameter("updateAt", System.currentTimeMillis());
@@ -150,9 +157,6 @@ public class JPADeviceRepository implements DeviceRepository{
         int updatedEntry = query.executeUpdate();
         // assert the sql statement is executed, and the entry is updated
         assert(updatedEntry == 1);
-
-        em.persist(log);
-        return log;
     }
 
     private DeviceLog checkDeviceLog(EntityManager em, Long id) {
