@@ -133,7 +133,10 @@ public class JPADeviceRepository implements DeviceRepository{
         query.setParameter("status", STAT_INVALID);
         query.setParameter("updateAt", System.currentTimeMillis());
         query.setParameter("id", id);
-        query.executeUpdate();
+
+        int updatedEntry = query.executeUpdate();
+        // assert the sql statement is executed, and the entry is updated
+        assert(updatedEntry == 1);
 
         return id;
     }
@@ -143,7 +146,10 @@ public class JPADeviceRepository implements DeviceRepository{
         query.setParameter("status", log.status);
         query.setParameter("updateAt", System.currentTimeMillis());
         query.setParameter("id", log.deviceId);
-        query.executeUpdate();
+
+        int updatedEntry = query.executeUpdate();
+        // assert the sql statement is executed, and the entry is updated
+        assert(updatedEntry == 1);
 
         em.persist(log);
         return log;
