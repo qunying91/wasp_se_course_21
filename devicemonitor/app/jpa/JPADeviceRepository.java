@@ -90,7 +90,7 @@ public class JPADeviceRepository implements DeviceRepository{
      */
     @Override
     public CompletionStage<DeviceLog> updateDeviceLog(DeviceLog log) {
-        return supplyAsync(() -> wrap(em -> update(em, log)), execContext);
+        return supplyAsync(() -> wrap(em -> updateDeviceLog(em, log)), execContext);
     }
 
     /**
@@ -101,7 +101,7 @@ public class JPADeviceRepository implements DeviceRepository{
      */
     @Override
     public CompletionStage<DeviceLog> checkDeviceLog(Long deviceId) {
-        return supplyAsync(() -> wrap(em -> check(em, deviceId)), execContext);
+        return supplyAsync(() -> wrap(em -> checkDeviceLog(em, deviceId)), execContext);
     }
 
     private <T> T wrap(Function<EntityManager, T> function) {
@@ -141,7 +141,7 @@ public class JPADeviceRepository implements DeviceRepository{
         return id;
     }
 
-    private DeviceLog update(EntityManager em, DeviceLog log) {
+    private DeviceLog updateDeviceLog(EntityManager em, DeviceLog log) {
         Query query  = em.createQuery("update Device d set d.status = :status, d.updateAt = :updateAt where d.id = :id");
         query.setParameter("status", log.status);
         query.setParameter("updateAt", System.currentTimeMillis());
@@ -155,7 +155,7 @@ public class JPADeviceRepository implements DeviceRepository{
         return log;
     }
 
-    private DeviceLog check(EntityManager em, Long id) {
+    private DeviceLog checkDeviceLog(EntityManager em, Long id) {
         TypedQuery<DeviceLog> query = em.createQuery("select l from DeviceLog l where l.deviceId = :id order by id desc", DeviceLog.class);
         List<DeviceLog> logs = query.setParameter("id", id).getResultList();
 
