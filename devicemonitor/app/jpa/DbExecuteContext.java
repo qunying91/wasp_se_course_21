@@ -1,4 +1,4 @@
-package models;
+package jpa;
 
 import akka.actor.ActorSystem;
 import play.libs.concurrent.CustomExecutionContext;

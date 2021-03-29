@@ -1,8 +1,8 @@
 package controllers;
 
-import models.Customer;
-import models.Device;
-import models.DeviceLog;
+import jpa.models.Customer;
+import jpa.models.Device;
+import jpa.models.DeviceLog;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.FixMethodOrder;
 import org.junit.Test;

@@ -1,5 +1,8 @@
-package models;
+package jpa;
 
+import jpa.models.Customer;
+import jpa.models.Device;
+import jpa.models.DeviceLog;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;

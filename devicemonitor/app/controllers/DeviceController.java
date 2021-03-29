@@ -1,9 +1,9 @@
 package controllers;
 
-import models.Customer;
-import models.Device;
-import models.DeviceLog;
-import models.DeviceRepository;
+import jpa.models.Customer;
+import jpa.models.Device;
+import jpa.models.DeviceLog;
+import jpa.DeviceRepository;
 import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.*;

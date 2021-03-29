@@ -2,10 +2,10 @@ package controllers;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import models.Customer;
-import models.Device;
-import models.DeviceLog;
-import models.DeviceRepository;
+import jpa.models.Customer;
+import jpa.models.Device;
+import jpa.models.DeviceLog;
+import jpa.DeviceRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator;
 import org.junit.Test;

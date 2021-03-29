@@ -1,4 +1,4 @@
-package models;
+package jpa.models;
 
 import javax.persistence.*;
 

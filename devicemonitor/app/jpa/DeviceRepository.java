@@ -1,6 +1,9 @@
-package models;
+package jpa;
 
 import com.google.inject.ImplementedBy;
+import jpa.models.Customer;
+import jpa.models.Device;
+import jpa.models.DeviceLog;
 
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
