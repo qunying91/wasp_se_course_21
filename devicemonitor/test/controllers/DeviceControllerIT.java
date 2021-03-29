@@ -62,7 +62,9 @@ public class DeviceControllerIT extends WithServer {
             CompletionStage<WSResponse> stage = ws.url("/add/customer").post(Json.toJson(customer));
             WSResponse response = stage.toCompletableFuture().get();
             String body = response.getBody();
+            assert(StringUtils.isNotEmpty(body));
             Customer addedCustomer = Json.mapper().readValue(body, Customer.class);
+            assert(addedCustomer != null);
             assertEquals(customer.id, addedCustomer.id);
             assertEquals(customer.name, addedCustomer.name);
         } catch (InterruptedException e) {
@@ -85,7 +87,11 @@ public class DeviceControllerIT extends WithServer {
             CompletionStage<WSResponse> stage = ws.url("/customers").get();
             WSResponse response = stage.toCompletableFuture().get();
             String body = response.getBody();
+            assert(StringUtils.isNotEmpty(body));
             List<Customer> retrievedCustomer = Arrays.asList(Json.mapper().readValue(body, Customer[].class));
+
+            //assert the retrieved list not null, otherwise sort will fail and throw NullPointerException
+            assert(retrievedCustomer != null);
 
             // sort the list by id in descending order
             Collections.sort(retrievedCustomer, new Comparator<Customer>() {
@@ -125,7 +131,9 @@ public class DeviceControllerIT extends WithServer {
             CompletionStage<WSResponse> stage = ws.url("/add/device").post(Json.toJson(device));
             WSResponse response = stage.toCompletableFuture().get();
             String body = response.getBody();
+            assert(StringUtils.isNotEmpty(body));
             Device addedDevice = Json.mapper().readValue(body, Device.class);
+            assert(addedDevice != null);
             assertEquals(device.id, addedDevice.id);
             assertEquals(device.description, addedDevice.description);
             assertEquals(device.customerId, addedDevice.customerId);
@@ -151,7 +159,9 @@ public class DeviceControllerIT extends WithServer {
             CompletionStage<WSResponse> stage = ws.url("/devices").get();
             WSResponse response = stage.toCompletableFuture().get();
             String body = response.getBody();
+            assert(StringUtils.isNotEmpty(body));
             List<Device> retrievedDevices = Arrays.asList(Json.mapper().readValue(body, Device[].class));
+            assert(retrievedDevices != null);
             assertTrue(retrievedDevices.size() >= 1);
 
             // sort the list by id in descending order
@@ -195,6 +205,7 @@ public class DeviceControllerIT extends WithServer {
             WSResponse response = stage.toCompletableFuture().get();
             String body = response.getBody();
             DeviceLog addedLog = Json.mapper().readValue(body, DeviceLog.class);
+            assert(addedLog != null);
             assertEquals(deviceLog.id, addedLog.id);
             assertEquals(deviceLog.deviceId, addedLog.deviceId);
             assertEquals(deviceLog.status, addedLog.status);
@@ -221,6 +232,7 @@ public class DeviceControllerIT extends WithServer {
             WSResponse response = stage.toCompletableFuture().get();
             String body = response.getBody();
             DeviceLog deviceLog = Json.mapper().readValue(body, DeviceLog.class);
+            assert(deviceLog != null);
             assertEquals(deviceLogId, deviceLog.id);
             assertEquals(deviceId, deviceLog.deviceId);
             assertEquals(status, deviceLog.status);
