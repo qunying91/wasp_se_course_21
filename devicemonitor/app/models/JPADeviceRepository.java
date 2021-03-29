@@ -149,21 +149,12 @@ public class JPADeviceRepository implements DeviceRepository{
     }
 
     private DeviceLog check(EntityManager em, Long id) {
-        TypedQuery<DeviceLog> query = em.createQuery("select l from DeviceLog l where l.deviceId = :id", DeviceLog.class);
+        TypedQuery<DeviceLog> query = em.createQuery("select l from DeviceLog l where l.deviceId = :id order by id desc", DeviceLog.class);
         List<DeviceLog> logs = query.setParameter("id", id).getResultList();
 
         if(logs.size() == 0) {
             return null;
         }
-
-        // sort the list by id in descending order
-        Collections.sort(logs, new Comparator<DeviceLog>() {
-            @Override
-            public int compare(DeviceLog d1, DeviceLog d2) {
-                return d2.getId().compareTo(d1.getId());
-            }
-        });
-
 
         return logs.get(0);
     }
